@@ -160,10 +160,10 @@ h1, h2, h3, h4, h5, h6 {
 .nav-menu a {
   display: block;
   position: relative;
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 16px;
+  color: rgba(0, 0, 255, 1);
+  font-size: 20px;
   font-family: "Poppins", sans-serif;
-  font-weight: 400;
+  font-weight: 1000;
 }
 
 .nav-menu a:before {
@@ -996,7 +996,7 @@ section .container {
   border-radius: 0;
   box-shadow: none;
   font-size: 14px;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.7);
   border: 0;
   transition: 0.3s;
   color: #fff;
