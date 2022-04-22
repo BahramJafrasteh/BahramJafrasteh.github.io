@@ -20,7 +20,7 @@ body::before {
   content: "";
   position: fixed;
   background: #040404 url("../img/ai.png") top right no-repeat;
-  background-size: cover;
+  background-size: auto;
     height: 100%;
     margin: 0;
     overflow-x: hidden;
@@ -198,7 +198,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .nav-menu a:hover:before, .nav-menu li:hover > a:before, .nav-menu .active > a:before {
   visibility: visible;
-  width: 25px;
+  width: 2px;
 }
 
 .nav-menu a:hover, .nav-menu .active > a, .nav-menu li:hover > a {
