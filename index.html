@@ -1,118 +1,1107 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type"
-content="text/html; charset=iso-8859-1">
-<title>DCMburner (c) Sup-C</title>
-<link rel="stylesheet" type="text/css" href="html/menu/menu_style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Bahram Jafrasteh, Ph.D. — Postdoctoral Research Associate at Weill Cornell Medicine. Machine Learning, Neuroimaging, Computational Neuroscience.">
+<meta name="keywords" content="Bahram Jafrasteh, machine learning, neuroimaging, Gaussian processes, deep learning, Weill Cornell Medicine">
+<meta name="google-site-verification" content="3Aw3BcrkQ1CpxrN7XAj-GnuoxyKxhgsNMz4UrJknyBM" />
+<title>Bahram Jafrasteh, Ph.D.</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
 <style>
-<!--
- p.MsoNormal
-	{mso-style-parent:"";
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:Times;
-	margin-left:0cm; margin-right:0cm; margin-top:0cm}
-.style1 {font-family: Arial, Helvetica, sans-serif}
--->
+  /* ===== RESET & BASE ===== */
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --navy:    #0d1b2a;
+    --navy2:   #1a2d42;
+    --accent:  #c9843a;
+    --accent2: #e8a55a;
+    --text:    #1a1a2e;
+    --muted:   #5c6070;
+    --border:  #dde1e8;
+    --surface: #f7f6f2;
+    --white:   #ffffff;
+    --serif:   'DM Serif Display', Georgia, serif;
+    --sans:    'DM Sans', system-ui, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    color: var(--text);
+    background: var(--white);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  a { color: inherit; }
+
+  /* ===== NAVIGATION ===== */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-inner {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 54px;
+  }
+
+  .nav-name {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    color: var(--navy);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 1.8rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: var(--navy);
+    color: #fff;
+    padding: 4.5rem 2rem 3.5rem;
+  }
+
+  .hero-inner {
+    max-width: 980px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 170px;
+    gap: 2.5rem;
+    align-items: start;
+  }
+
+  .hero-tag {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 1rem;
+  }
+
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: 2.8rem;
+    line-height: 1.08;
+    color: #fff;
+    margin-bottom: 0.7rem;
+    font-weight: 400;
+  }
+
+  .hero-sub {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.65;
+    max-width: 540px;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    font-size: 0.87rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 1.8rem;
+  }
+
+  .hero-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .hero-links {
+    display: flex;
+    gap: 0.7rem;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.5rem 1.1rem;
+    border-radius: 6px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s;
+    border: none;
+    cursor: pointer;
+    font-family: var(--sans);
+  }
+
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: var(--accent2); }
+
+  .btn-ghost {
+    background: transparent;
+    color: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+  }
+  .btn-ghost:hover {
+    border-color: rgba(255, 255, 255, 0.55);
+    color: #fff;
+  }
+
+  .hero-photo {
+    width: 160px;
+    height: 160px;
+    border-radius: 12px;
+    object-fit: cover;
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    flex-shrink: 0;
+  }
+
+  /* placeholder shown when no photo is set */
+  .avatar {
+    width: 160px;
+    height: 160px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.07);
+    border: 2px dashed rgba(255, 255, 255, 0.18);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 0.75rem;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .initials {
+    font-family: var(--serif);
+    font-size: 2.4rem;
+    color: rgba(255, 255, 255, 0.38);
+  }
+
+  /* ===== STATS BAR ===== */
+  .stats-bar {
+    background: var(--navy2);
+    padding: 1.4rem 2rem;
+  }
+
+  .stats-inner {
+    max-width: 980px;
+    margin: 0 auto;
+    display: flex;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+  }
+
+  .stat { text-align: center; }
+
+  .stat-num {
+    font-family: var(--serif);
+    font-size: 1.55rem;
+    color: #fff;
+  }
+
+  .stat-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  /* ===== SECTIONS ===== */
+  section { padding: 3.8rem 2rem; }
+
+  .section-inner {
+    max-width: 980px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: 1.75rem;
+    color: var(--navy);
+    margin-bottom: 2rem;
+    font-weight: 400;
+  }
+
+  /* ===== ABOUT ===== */
+  #about { background: var(--surface); }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.8rem;
+    align-items: start;
+  }
+
+  .about-text p {
+    color: var(--muted);
+    font-size: 0.93rem;
+    margin-bottom: 0.9rem;
+    line-height: 1.75;
+  }
+
+  .about-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .acard {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.1rem 1.3rem;
+  }
+
+  .acard h4 {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: 0.3rem;
+  }
+
+  .acard p {
+    font-size: 0.9rem;
+    color: var(--text);
+    font-weight: 500;
+    line-height: 1.5;
+  }
+
+  /* ===== TIMELINE ===== */
+  .timeline {
+    position: relative;
+    padding-left: 1.8rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    bottom: 8px;
+    width: 1px;
+    background: var(--border);
+  }
+
+  .tl-item {
+    position: relative;
+    margin-bottom: 2rem;
+  }
+
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -1.8rem;
+    top: 7px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--white);
+    box-shadow: 0 0 0 2px var(--accent);
+  }
+
+  .tl-period {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.06em;
+    margin-bottom: 0.15rem;
+  }
+
+  .tl-role {
+    font-size: 0.97rem;
+    font-weight: 500;
+    color: var(--navy);
+    margin-bottom: 0.1rem;
+  }
+
+  .tl-org {
+    font-size: 0.87rem;
+    color: var(--muted);
+    font-style: italic;
+    margin-bottom: 0.4rem;
+  }
+
+  .tl-desc {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .tl-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-top: 0.5rem;
+  }
+
+  .tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    color: var(--navy2);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.18rem 0.55rem;
+  }
+
+  /* ===== SKILLS ===== */
+  #skills { background: var(--surface); }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1.2rem;
+  }
+
+  .sg {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.2rem 1.3rem;
+  }
+
+  .sg-title {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 0.85rem;
+  }
+
+  .sk {
+    display: inline-block;
+    font-size: 0.8rem;
+    color: var(--navy2);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.22rem 0.55rem;
+    margin: 0.2rem 0.18rem 0.2rem 0;
+  }
+
+  .lang-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.28rem 0;
+    font-size: 0.85rem;
+    border-bottom: 1px solid var(--surface);
+  }
+
+  .lang-row:last-child { border-bottom: none; }
+
+  .lang-lv {
+    font-size: 0.72rem;
+    color: var(--muted);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 0.1rem 0.45rem;
+  }
+
+  /* ===== PUBLICATIONS ===== */
+  .pub-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .pub-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.2rem 1.5rem;
+    display: flex;
+    gap: 1.1rem;
+    align-items: flex-start;
+    transition: border-color 0.2s;
+  }
+
+  .pub-card:hover { border-color: var(--accent); }
+
+  .pub-year {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    color: var(--border);
+    flex-shrink: 0;
+    min-width: 2.5rem;
+    line-height: 1.2;
+    text-align: right;
+  }
+
+  .pub-title {
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: var(--navy);
+    margin-bottom: 0.25rem;
+    line-height: 1.4;
+  }
+
+  .pub-venue {
+    font-size: 0.8rem;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 0.18rem;
+  }
+
+  .pub-authors {
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+
+  .badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 500;
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+    background: #eef4ff;
+    color: #1a4a8a;
+    border: 1px solid #c0d6f5;
+  }
+
+  /* ===== SOFTWARE ===== */
+  #software { background: var(--surface); }
+
+  .soft-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+  }
+
+  .soft-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.3rem 1.5rem;
+  }
+
+  .soft-card h3 {
+    font-size: 0.97rem;
+    font-weight: 500;
+    color: var(--navy);
+    margin-bottom: 0.3rem;
+  }
+
+  .soft-card p {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 0.7rem;
+    line-height: 1.5;
+  }
+
+  .soft-links { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+  .soft-link {
+    font-size: 0.78rem;
+    color: var(--accent);
+    text-decoration: none;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.2rem 0.6rem;
+    transition: border-color 0.2s;
+  }
+
+  .soft-link:hover { border-color: var(--accent); }
+
+  /* ===== PROJECTS ===== */
+  .proj-list { display: flex; flex-direction: column; gap: 0.9rem; }
+
+  .proj-item {
+    background: var(--white);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    padding: 0.9rem 1.2rem;
+    border-top: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .proj-name {
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: var(--navy);
+    margin-bottom: 0.15rem;
+  }
+
+  .proj-meta { font-size: 0.8rem; color: var(--muted); }
+
+  /* ===== CONTACT ===== */
+  #contact { background: var(--navy); color: #fff; }
+  #contact .section-label { color: var(--accent2); }
+  #contact .section-title { color: #fff; }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .ci {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .ci-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 7px;
+    background: rgba(255, 255, 255, 0.07);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 0.95rem;
+  }
+
+  .ci-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.35);
+    margin-bottom: 0.18rem;
+  }
+
+  .ci-value { font-size: 0.9rem; color: rgba(255, 255, 255, 0.8); }
+  .ci-value a { color: rgba(255, 255, 255, 0.8); text-decoration: none; }
+  .ci-value a:hover { color: var(--accent2); }
+
+  .soc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.7rem;
+  }
+
+  .soc-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.6rem 0.9rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .soc-btn:hover { background: rgba(255, 255, 255, 0.1); color: #fff; }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--navy);
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    padding: 1.4rem 2rem;
+    text-align: center;
+  }
+
+  footer p {
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.28);
+    max-width: 980px;
+    margin: 0 auto;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .avatar, .hero-photo { display: none; }
+    .about-grid { grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+    .soft-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .nav-links { gap: 1rem; }
+    .hero h1 { font-size: 2.2rem; }
+    .stats-inner { gap: 1.5rem; }
+    .sg[style*="span 2"] { grid-column: span 1; }
+  }
+
+  @media (max-width: 480px) {
+    .skills-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    section { padding: 2.5rem 1.2rem; }
+    .hero { padding: 3rem 1.2rem 2.5rem; }
+  }
 </style>
 </head>
 <body>
-<div class="container">
-<table border="0" cellspacing="0" cellpadding="0">
-	<tr>
-		<td>
-		<img border="0" src="html/menu/images/banner.jpg" width="1024" height="106">
-		</td>
-	</tr>
-	<tr>
-		<td><div class="nav-container-outer" style="width: 1024px; height: 74px">
-<img src="html/menu/images/navbgl.jpg" alt="" class="float-left" />
-<img src="html/menu/images/navbgr.jpg" alt="" class="float-right" />
-<ul id="nav-container" class="nav-container">
-<li><a class="item-primary" href="index.html" target="_self">Home</a></li>
-<li><span class="divider divider-vert" ></span></li>
-<li><a class="item-primary"  target="_self">Studies</a>
-<ul style="width:250px;">
-<li><a href="html\st1.html" title="Studies" target="_self" >JAFRASTEH RAZIYEH MR PEL</a></li>
-</ul></li>
-<li><a class="item-primary"  target="_self">Series</a>
-<ul style="width:250px;">
-<li><a href="html\se1.html" title="Series" target="_self" >JAFRASTEH RAZIYEH MR </a></li>
-<li><a href="html\se2.html" title="Series" target="_self" >JAFRASTEH RAZIYEH MR </a></li>
-<li><a href="html\se3.html" title="Series" target="_self" >JAFRASTEH RAZIYEH MR </a></li>
-<li><a href="html\se4.html" title="Series" target="_self" >JAFRASTEH RAZIYEH MR </a></li>
-<li><a href="html\se5.html" title="Series" target="_self" >JAFRASTEH RAZIYEH MR </a></li>
-<li><a href="html\se6.html" title="Series" target="_self" >JAFRASTEH RAZIYEH MR </a></li>
-<li><a href="html\se7.html" title="Series" target="_self" >JAFRASTEH RAZIYEH MR </a></li>
-<li><a href="html\se8.html" title="Series" target="_self" >JAFRASTEH RAZIYEH MR </a></li>
-<li><a href="html\se9.html" title="Series" target="_self" >JAFRASTEH RAZIYEH MR </a></li>
-<li><a href="html\se10.html" title="Series" target="_self" >JAFRASTEH RAZIYEH MR </a></li>
-<li><a href="html\se11.html" title="Series" target="_self" >JAFRASTEH RAZIYEH MR </a></li>
-<li><a href="html\se12.html" title="Series" target="_self" >JAFRASTEH RAZIYEH MR </a></li>
-<li><a href="html\se13.html" title="Series" target="_self" >JAFRASTEH RAZIYEH MR </a></li>
-<li><a href="html\se14.html" title="Series" target="_self" >JAFRASTEH RAZIYEH MR </a></li>
-<li><a href="html\se15.html" title="Series" target="_self" >JAFRASTEH RAZIYEH MR </a></li>
-<li><a href="html\se16.html" title="Series" target="_self" >JAFRASTEH RAZIYEH MR </a></li>
-<li><a href="html\se17.html" title="Series" target="_self" >JAFRASTEH RAZIYEH MR </a></li>
-<li><a href="html\se18.html" title="Series" target="_self" >JAFRASTEH RAZIYEH MR </a></li>
-<li><a href="html\se19.html" title="Series" target="_self" >JAFRASTEH RAZIYEH MR </a></li>
-<li><a href="html\se20.html" title="Series" target="_self" >JAFRASTEH RAZIYEH MR </a></li>
-<li><a href="html\se21.html" title="Series" target="_self" >JAFRASTEH RAZIYEH MR </a></li>
-<li><a href="html\se22.html" title="Series" target="_self" >JAFRASTEH RAZIYEH MR </a></li>
-<li><a href="html\se23.html" title="Series" target="_self" >JAFRASTEH RAZIYEH MR </a></li>
-<li><a href="html\se24.html" title="Series" target="_self" >JAFRASTEH RAZIYEH MR </a></li>
-<li><a href="html\se25.html" title="Series" target="_self" >JAFRASTEH RAZIYEH MR </a></li>
-</ul></li>
-<li><a class="item-primary"  target="_self">About</a>
-<ul style="width:150px;">
-    <li><a href="http://www.sup-c.com" title="Sup-C" target="_self" >Help</a></li>
-    <li><a href="http://www.sup-c.com" title="Sup-C" target="_self" >Contact</a></li>
+
+<!-- ===== NAVIGATION ===== -->
+<nav>
+  <div class="nav-inner">
+    <span class="nav-name">Bahram Jafrasteh</span>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#software">Software</a></li>
+      <li><a href="#contact">Contact</a></li>
     </ul>
-</li>
-<li><span class="divider divider-vert" ></span></li>
-    <li class="clear">&nbsp;</li>
-	</ul></td>
-<table border="1" width="100%" cellspacing="0" cellpadding="0" bordercolorlight="#800080" bgcolor="#000000"><tr><td width="500"><table
- style="text-align: left; background-color: #000000; width: 500px; height: 107px"
- border="0" cellpadding="0" cellspacing="0">
-  <tbody>
-    <tr>
-      <td width="21">&nbsp;</td>
-      <td style="font-family: Arial;" width="163"><b><font size="2" color="#FFFFFF">Patientname</font></b></td>
-      <td style="font-family: Arial;"><font size="2" color="#FFFFFF">JAFRASTEH RAZIYEH</font></td>
-    </tr>
-    <tr>
-      <td width="21">&nbsp;</td>
-      <td style="font-family: Arial;" width="163"><b><font size="2" color="#FFFFFF">Patient ID</font></b></td>
-      <td style="font-family: Arial;"><font size="2" color="#FFFFFF">4061589326</font></td>
-    </tr>
-    <tr>
-      <td width="21">&nbsp;</td>
-      <td style="font-family: Arial;" width="163"><b><font size="2" color="#FFFFFF">Birthdate</font></b></td>
-      <td style="font-family: Arial;"><font size="2" color="#FFFFFF">09.07.2024</font></td>
-    </tr>
-    <tr>
-      <td width="21">&nbsp;</td>
-      <td style="font-family: Arial;" width="163"><b><font size="2" color="#FFFFFF">Sex</font></b></td>
-      <td style="font-family: Arial;"><font size="2" color="#FFFFFF">F</font></td>
-    </tr>
-    <tr>
-      <td width="21">&nbsp;</td>
-      <td style="font-family: Arial;" width="163"><b><font size="2" color="#FFFFFF">Accession Number</font></b></td>
-      <td style="font-family: Arial;"><font size="2" color="#FFFFFF">20240709165716</font></td>
-    </tr>
-    <tr>
-      <td width="21">&nbsp;</td>
-      <td style="font-family: Arial;" width="163"><b><font size="2" color="#FFFFFF">Study Description</font></b></td>
-      <td style="font-family: Arial;"><font size="2" color="#FFFFFF">PEL</font></td>
-    </tr>
-  </tbody>
-</table>
-</td><td><p align="center">
-<a href="html\st1.html"><img
- style="border: 0px solid ; width: 200px; height: 200px;"
- alt="Click on the Study image to view the series of JAFRASTEH RAZIYEH" src="html\image\1.jpg""></a></td>
-</tr></table><p>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-tag">Machine Learning · Neuroimaging · Computational Neuroscience</div>
+      <h1>Bahram<br>Jafrasteh, Ph.D.</h1>
+      <p class="hero-sub">Developing novel machine learning frameworks for medical neuroimaging — from probabilistic Gaussian processes to deep graph neural networks for MRI and DTI analysis.</p>
+      <div class="hero-meta">
+        <span><span class="dot"></span>Postdoctoral Research Associate — Weill Cornell Medicine, New York</span>
+        <span><span class="dot"></span>Department of Radiology</span>
+        <span><span class="dot"></span>baj4003@med.cornell.edu</span>
+      </div>
+      <div class="hero-links">
+        <a class="btn btn-primary" href="https://scholar.google.com/citations?user=ShNTw54AAAAJ&hl=en" target="_blank">Google Scholar ↗</a>
+        <a class="btn btn-ghost" href="https://github.com/BahramJafrasteh" target="_blank">GitHub</a>
+        <a class="btn btn-ghost" href="https://www.researchgate.net/profile/Bahram-Jafrasteh" target="_blank">ResearchGate</a>
+        <a class="btn btn-ghost" href="https://es.linkedin.com/in/bahram-jafrasteh-866b79131" target="_blank">LinkedIn</a>
+      </div>
+    </div>
+    <!--
+      To add your photo: replace the <div class="avatar"> below with:
+      <img src="img/BJ.jpg" alt="Bahram Jafrasteh" class="hero-photo">
+    -->
+    <div class="avatar">
+      <div class="initials">BJ</div>
+      <span>Photo</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== STATS BAR ===== -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat">
+      <div class="stat-num">15+</div>
+      <div class="stat-label">Publications</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">~300</div>
+      <div class="stat-label">Citations</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">67+</div>
+      <div class="stat-label">Peer reviews</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">25+</div>
+      <div class="stat-label">Open-source repos</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">4</div>
+      <div class="stat-label">Countries</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ABOUT ===== -->
+<section id="about">
+  <div class="section-inner">
+    <div class="section-label">Background</div>
+    <div class="section-title">About</div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>My research advances clinical artificial intelligence by developing novel machine learning frameworks to analyze complex scientific data, with a primary focus on medical neuroimaging.</p>
+        <p>My career represents a logical progression from my Ph.D., where I built foundational ML models for geophysical data, to my current focus on medicine. The core challenge remains the same: extracting meaningful information from noisy, high-dimensional, and often incomplete data.</p>
+        <p>This transition is exemplified by my work evolving Gaussian Processes — originally used for mineral estimation — into a novel framework (MGP) to solve the critical problem of missing data in clinical neuroimaging.</p>
+        <p>At Weill Cornell Medicine, I focus on enhancing the reliability and clinical application of ML in medical imaging and healthcare data analysis, including deep graph neural networks for MRI/DTI, harmonization, and modeling trajectories from longitudinal EHR data.</p>
+      </div>
+      <div class="about-cards">
+        <div class="acard">
+          <h4>Current Position</h4>
+          <p>Postdoctoral Research Associate<br>Dept. of Radiology, Weill Cornell Medicine<br>New York, USA — Jul 2024–Present</p>
+        </div>
+        <div class="acard">
+          <h4>Research Focus</h4>
+          <p>Probabilistic ML · Gaussian Processes · Deep Graph Neural Networks · Neonatal Neuroimaging · Longitudinal EHR</p>
+        </div>
+        <div class="acard">
+          <h4>Education</h4>
+          <p>Ph.D. Mining Engineering — Isfahan University of Technology, 2018<br>M.Sc. — Isfahan University of Technology, 2012<br>B.Sc. — University of Tehran, 2009</p>
+        </div>
+        <div class="acard">
+          <h4>Accreditation &amp; Service</h4>
+          <p>ANECA accredited (Spain) · Peer reviewer for Neural Networks, MICCAI, Knowledge-Based Systems, and more</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== EXPERIENCE ===== -->
+<section id="experience">
+  <div class="section-inner">
+    <div class="section-label">Career</div>
+    <div class="section-title">Research Experience</div>
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-period">Jul 2024 – Present</div>
+        <div class="tl-role">Postdoctoral Research Associate</div>
+        <div class="tl-org">Department of Radiology, Weill Cornell Medicine — New York, USA</div>
+        <div class="tl-desc">Machine intelligence in neuroimaging; deep graph neural networks for MRI/DTI. Multimodal preprocessing, harmonization, and outcome prediction. Deep learning models for longitudinal electronic health record trajectory analysis.</div>
+        <div class="tl-tags">
+          <span class="tag">Graph Neural Networks</span>
+          <span class="tag">DTI/FC</span>
+          <span class="tag">Longitudinal EHR</span>
+          <span class="tag">MRI harmonization</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-period">Feb 2021 – Jul 2024</div>
+        <div class="tl-role">Postdoctoral Researcher</div>
+        <div class="tl-org">INiBICA, Hospital Universitario Puerta del Mar — Cádiz, Spain</div>
+        <div class="tl-desc">Deep learning for neonatal MRI/US segmentation (MELAGE software), missing data imputation, and biomarker extraction. Led preprocessing/registration pipelines; contributed to multicenter projects AUTO-NEUS and PARENT.</div>
+        <div class="tl-tags">
+          <span class="tag">Neonatal MRI</span>
+          <span class="tag">Segmentation</span>
+          <span class="tag">MELAGE</span>
+          <span class="tag">AUTO-NEUS</span>
+          <span class="tag">PARENT (H2020)</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-period">Sep 2020 – Feb 2021</div>
+        <div class="tl-role">Postdoctoral Researcher</div>
+        <div class="tl-org">Autonomous University of Madrid (UAM) — Madrid, Spain</div>
+        <div class="tl-desc">Deep and sparse Gaussian Processes for regression and classification; open-source implementations.</div>
+        <div class="tl-tags">
+          <span class="tag">Gaussian Processes</span>
+          <span class="tag">Variational Inference</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-period">Jan 2020 – Aug 2020</div>
+        <div class="tl-role">Postdoctoral Researcher</div>
+        <div class="tl-org">INRIA &amp; GeoAzur, Université Côte d'Azur — Sophia Antipolis, France</div>
+        <div class="tl-desc">GAN-based fault and fracture extraction from high-resolution satellite imagery; vectorization algorithms.</div>
+        <div class="tl-tags">
+          <span class="tag">GANs</span>
+          <span class="tag">Remote Sensing</span>
+          <span class="tag">Deep Learning</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-period">Feb 2016 – Dec 2016</div>
+        <div class="tl-role">Research Fellow</div>
+        <div class="tl-org">Autonomous University of Madrid (UAM) — Madrid, Spain</div>
+        <div class="tl-desc">Machine learning for ore grade estimation using Gaussian Processes, neural networks, and geostatistics.</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-period">Sep 2012 – Sep 2018</div>
+        <div class="tl-role">Ph.D. Researcher</div>
+        <div class="tl-org">Isfahan University of Technology — Isfahan, Iran</div>
+        <div class="tl-desc">Advanced ML for ore grade estimation. Developed Gaussian process models in C++, warped RBF neural networks, and Bayesian optimization for exploration planning. GPA: 18.68/20.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== SKILLS ===== -->
+<section id="skills">
+  <div class="section-inner">
+    <div class="section-label">Expertise</div>
+    <div class="section-title">Skills</div>
+    <div class="skills-grid">
+
+      <div class="sg">
+        <div class="sg-title">Programming</div>
+        <span class="sk">Python</span>
+        <span class="sk">PyTorch</span>
+        <span class="sk">TensorFlow</span>
+        <span class="sk">Scikit-learn</span>
+        <span class="sk">OpenCV</span>
+        <span class="sk">C++</span>
+        <span class="sk">R</span>
+        <span class="sk">MATLAB</span>
+        <span class="sk">Bash/Shell</span>
+        <span class="sk">SQL</span>
+        <span class="sk">Docker</span>
+      </div>
+
+      <div class="sg">
+        <div class="sg-title">Research Methods</div>
+        <span class="sk">Gaussian Processes</span>
+        <span class="sk">Variational Inference</span>
+        <span class="sk">Graph Neural Networks</span>
+        <span class="sk">Bayesian Optimization</span>
+        <span class="sk">GANs</span>
+        <span class="sk">Diffusion Models</span>
+        <span class="sk">CNNs</span>
+        <span class="sk">Missing data imputation</span>
+      </div>
+
+      <div class="sg">
+        <div class="sg-title">Neuroimaging &amp; Tools</div>
+        <span class="sk">FreeSurfer</span>
+        <span class="sk">3D Slicer</span>
+        <span class="sk">ANTs</span>
+        <span class="sk">MIRTK</span>
+        <span class="sk">FSL</span>
+        <span class="sk">GDAL</span>
+        <span class="sk">QGIS</span>
+        <span class="sk">ArcGIS</span>
+        <span class="sk">HPC</span>
+      </div>
+
+      <div class="sg">
+        <div class="sg-title">Languages</div>
+        <div class="lang-row"><span>Persian</span><span class="lang-lv">Native</span></div>
+        <div class="lang-row"><span>English</span><span class="lang-lv">Fluent</span></div>
+        <div class="lang-row"><span>Spanish</span><span class="lang-lv">Fluent</span></div>
+        <div class="lang-row"><span>French</span><span class="lang-lv">Basic</span></div>
+      </div>
+
+      <div class="sg" style="grid-column: span 2;">
+        <div class="sg-title">Professional</div>
+        <span class="sk">Scientific Communication</span>
+        <span class="sk">Student Mentoring</span>
+        <span class="sk">Collaborative Research</span>
+        <span class="sk">Peer Review (67+ reviews)</span>
+        <span class="sk">ANECA Accredited</span>
+        <span class="sk">Grant Participation</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== PUBLICATIONS ===== -->
+<section id="publications">
+  <div class="section-inner">
+    <div class="section-label">Research Output</div>
+    <div class="section-title">Selected Publications</div>
+    <div class="pub-list">
+
+      <div class="pub-card">
+        <div class="pub-year">2025</div>
+        <div>
+          <div class="pub-title">WASABI: A metric for evaluating morphometric plausibility of synthetic brain MRIs <span class="badge">MICCAI 2025</span></div>
+          <div class="pub-venue">MICCAI 2025</div>
+          <div class="pub-authors">Jafrasteh, B., Peng, W., Wan, C., Luo, Y., Adeli, E., &amp; Zhao, Q.</div>
+        </div>
+      </div>
+
+      <div class="pub-card">
+        <div class="pub-year">2025</div>
+        <div>
+          <div class="pub-title">Statistical variability in comparing accuracy of neuroimaging-based classification models via cross validation</div>
+          <div class="pub-venue">Nature Scientific Reports, 15(1), 28745</div>
+          <div class="pub-authors">Jafrasteh, B., et al.</div>
+        </div>
+      </div>
+
+      <div class="pub-card">
+        <div class="pub-year">2025</div>
+        <div>
+          <div class="pub-title">Symmetry-Aware Brain MRI Inpainting Using Denoising Diffusion Models <span class="badge">MICAD 2025</span></div>
+          <div class="pub-venue">MICAD 2025</div>
+          <div class="pub-authors">Santorum, A., Suárez, A., &amp; Jafrasteh, B.</div>
+        </div>
+      </div>
+
+      <div class="pub-card">
+        <div class="pub-year">2024</div>
+        <div>
+          <div class="pub-title">MGA-Net: Mask-guided attention neural network for precision neonatal brain imaging</div>
+          <div class="pub-venue">NeuroImage, 120872</div>
+          <div class="pub-authors">Jafrasteh, B., et al.</div>
+        </div>
+      </div>
+
+      <div class="pub-card">
+        <div class="pub-year">2023</div>
+        <div>
+          <div class="pub-title">Gaussian Processes for Missing Value Imputation</div>
+          <div class="pub-venue">Knowledge-Based Systems, 110603</div>
+          <div class="pub-authors">Jafrasteh, B., Hernández-Lobato, D., et al.</div>
+        </div>
+      </div>
+
+      <div class="pub-card">
+        <div class="pub-year">2023</div>
+        <div>
+          <div class="pub-title">Deep SIFT CNN for total brain volume estimation from 3D ultrasound</div>
+          <div class="pub-venue">Computer Methods and Programs in Biomedicine, 107805</div>
+          <div class="pub-authors">Jafrasteh, B., Lubián-López S.P., Benavente-Fernández I.</div>
+        </div>
+      </div>
+
+      <div class="pub-card">
+        <div class="pub-year">2022</div>
+        <div>
+          <div class="pub-title">Input Dependent Sparse Gaussian Processes <span class="badge">ICML 2022</span></div>
+          <div class="pub-venue">International Conference on Machine Learning (PMLR)</div>
+          <div class="pub-authors">Jafrasteh, B., Villacampa-Calvo, C., Hernández-Lobato, D.</div>
+        </div>
+      </div>
+
+    </div>
+    <p style="font-size: 0.83rem; color: var(--muted); margin-top: 1.2rem;">
+      Full list available on <a href="https://scholar.google.com/citations?user=ShNTw54AAAAJ&hl=en" target="_blank" style="color: var(--accent);">Google Scholar</a>.
+    </p>
+  </div>
+</section>
+
+<!-- ===== SOFTWARE ===== -->
+<section id="software">
+  <div class="section-inner">
+    <div class="section-label">Open Source</div>
+    <div class="section-title">Software &amp; Projects</div>
+
+    <div class="soft-grid">
+      <div class="soft-card">
+        <h3>MELAGE</h3>
+        <p>Registered software for medical image analysis — neonatal MRI/US segmentation and biomarker extraction. Reg. No. 2211222681375, Spain, 2022.</p>
+        <div class="soft-links">
+          <a class="soft-link" href="https://pypi.org/project/melage/" target="_blank">PyPI</a>
+          <a class="soft-link" href="https://github.com/BahramJafrasteh" target="_blank">GitHub</a>
+          <a class="soft-link" href="https://arxiv.org/" target="_blank">arXiv</a>
+        </div>
+      </div>
+      <div class="soft-card">
+        <h3>MGP Imputer</h3>
+        <p>A Python package for missing data imputation using Gaussian Processes, designed for clinical neuroimaging datasets with incomplete observations.</p>
+        <div class="soft-links">
+          <a class="soft-link" href="https://pypi.org/" target="_blank">PyPI</a>
+          <a class="soft-link" href="https://github.com/BahramJafrasteh" target="_blank">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <p style="font-size: 0.83rem; color: var(--muted); margin-top: 1.2rem;">
+      Author and maintainer of <strong>25+ public repositories</strong> on GitHub covering deep learning, Gaussian processes, and scientific computing.
+    </p>
+
+    <div style="margin-top: 2.5rem;">
+      <div class="section-label">Funding</div>
+      <div class="section-title" style="font-size: 1.4rem; margin-bottom: 1.2rem;">Research Projects</div>
+      <div class="proj-list">
+
+        <div class="proj-item">
+          <div class="proj-name">AUTO-NEUS</div>
+          <div class="proj-meta">ISCIII · Ref. DTS22/00142 · 2023–2025 · Automatic neonatal brain injury detection via ultrasound imaging</div>
+        </div>
+
+        <div class="proj-item">
+          <div class="proj-name">PARENT</div>
+          <div class="proj-meta">H2020-MSCA-ITN · 2020–2024 · Early diagnosis of motor/cognitive impairment in preterm infants · Co-supervisor</div>
+        </div>
+
+        <div class="proj-item">
+          <div class="proj-name">Brain Development at 8 Years After Preterm Birth</div>
+          <div class="proj-meta">Plan Andaluz de Investigación · PI-0016-2020 · 2020–2023</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-label">Get in touch</div>
+    <div class="section-title">Contact</div>
+    <div class="contact-grid">
+      <div>
+        <div class="ci">
+          <div class="ci-icon">✉</div>
+          <div>
+            <div class="ci-label">Email</div>
+            <div class="ci-value"><a href="mailto:baj4003@med.cornell.edu">baj4003@med.cornell.edu</a></div>
+          </div>
+        </div>
+        <div class="ci">
+          <div class="ci-icon">📍</div>
+          <div>
+            <div class="ci-label">Location</div>
+            <div class="ci-value">Department of Radiology<br>Weill Cornell Medicine, New York, USA</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="ci-label" style="margin-bottom: 0.8rem;">Academic &amp; Social Profiles</div>
+        <div class="soc-grid">
+          <a class="soc-btn" href="https://scholar.google.com/citations?user=ShNTw54AAAAJ&hl=en" target="_blank">📚 Google Scholar</a>
+          <a class="soc-btn" href="https://www.researchgate.net/profile/Bahram-Jafrasteh" target="_blank">🔬 ResearchGate</a>
+          <a class="soc-btn" href="https://github.com/BahramJafrasteh" target="_blank">💻 GitHub</a>
+          <a class="soc-btn" href="https://es.linkedin.com/in/bahram-jafrasteh-866b79131" target="_blank">🔗 LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div style="max-width: 980px; margin: 0 auto;">
+    <p>© 2025 Bahram Jafrasteh, Ph.D. · Department of Radiology, Weill Cornell Medicine, New York</p>
+  </div>
+</footer>
+
 </body>
 </html>
